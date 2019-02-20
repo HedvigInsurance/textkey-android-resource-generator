@@ -1,0 +1,11 @@
+query TextKeys {
+  languages {
+    translations(where: {project: App}) {
+      text
+      key {
+        value
+      }
+    }
+    code
+  }
+}
