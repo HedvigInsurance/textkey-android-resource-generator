@@ -1,0 +1,15 @@
+plugins {
+    id 'groovy'
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:3.2.1'
+    implementation 'io.github.http-builder-ng:http-builder-ng-core:1.0.3'
+}
+
+repositories {
+    google()
+    jcenter()
+}

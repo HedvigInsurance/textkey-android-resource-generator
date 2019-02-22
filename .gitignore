@@ -1,4 +1,6 @@
-/target
-**/*.rs.bk
 .vscode
-output
+.gradle
+build
+*.iml
+.idea
+.java-version
