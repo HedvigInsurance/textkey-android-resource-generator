@@ -54,9 +54,9 @@ class TextkeyPlugin implements Plugin<Project> {
                         value\
                     }\
                 }\
-            code\
-        }\
-    }",
+                code\
+            }\
+        }",
     "operationName": "TextKeys"
 }'''
         }.post(Map) {}
