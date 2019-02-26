@@ -4,16 +4,16 @@ plugins {
     id 'groovy'
 }
 
+repositories {
+    google()
+    jcenter()
+}
+
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
     implementation 'com.android.tools.build:gradle:3.2.1'
     implementation 'io.github.http-builder-ng:http-builder-ng-core:1.0.3'
-}
-
-repositories {
-    google()
-    jcenter()
 }
 
 gradlePlugin {
@@ -30,11 +30,11 @@ pluginBundle {
     vcsUrl = 'https://www.github.com/hedviginsurance/textkey-android-resource-generator'
     description = 'Generate text key string resources for Android'
     tags = ['hedvig', 'textkeys', 'android']
-    version = '0.1'
+    version = '0.1.1'
 
     plugins {
         textkeysPlugin {
-            version = '0.1'
+            version = '0.1.1'
             displayName = 'Hedvig Text Keys Android Generator Plugin'
         }
     }

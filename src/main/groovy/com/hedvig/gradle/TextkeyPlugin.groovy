@@ -1,10 +1,12 @@
 package com.hedvig.gradle
 
+import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.DomainObjectCollection
 import com.android.build.gradle.api.BaseVariant
+import org.gradle.api.artifacts.DependencySet
 import org.gradle.api.plugins.ExtensionContainer
 
 import static groovyx.net.http.HttpBuilder.configure
@@ -16,6 +18,19 @@ class TextkeyPlugin implements Plugin<Project> {
 
     void apply(Project project) {
         this.project = project
+
+        def configuration = project.configurations.create("textkeys")
+        configuration.visible = false
+        configuration.description = "Dependencies required by the Hedvig TextKey Plugin"
+
+        configuration.defaultDependencies(new Action<DependencySet>() {
+            @Override
+            void execute(DependencySet dependencies) {
+                dependencies.add(project.dependencies.create("com.android.tools.build:gradle:3.2.1"))
+                dependencies.add(project.dependencies.create("io.github.http-builder-ng:http-builder-ng-core:1.0.3"))
+            }
+        })
+
 
         extension = project.extensions.create('textkeys', TextkeyExtension)
 
