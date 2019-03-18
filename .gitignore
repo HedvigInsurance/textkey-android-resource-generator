@@ -4,3 +4,6 @@ build
 *.iml
 .idea
 .java-version
+.DS_Store
+out
+
