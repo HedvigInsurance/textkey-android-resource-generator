@@ -25,12 +25,6 @@ open class TextkeyPlugin : Plugin<Project> {
         configuration.isVisible = false
         configuration.description = "Dependencies required by the Hedvig TextKey Plugin"
 
-        configuration.defaultDependencies { dependencies ->
-            dependencies.add(project.dependencies.create("com.android.tools.build:gradle:3.2.1"))
-            dependencies.add(project.dependencies.create("com.squareup.okhttp3:okhttp:3.14.0"))
-            dependencies.add(project.dependencies.create("com.beust:klaxon:5.0.5"))
-        }
-
         extension = project.extensions.create("textkeys", TextkeyExtension::class.java)
 
         getVariants().all { variant ->
