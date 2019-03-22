@@ -30,11 +30,12 @@ open class TextkeyPlugin : Plugin<Project> {
         getVariants().all { variant ->
             val variantName = variant.name.capitalize()
             val outputDir = "${project.buildDir}/generated/textkeys/res"
-            val stringsTask = project.task("generateTextKeyStringResourcesFor$variantName") {
+            val stringsTask = project.task("generateTextKeyStringResourcesFor$variantName") { task ->
                 if (data == null) {
                     data = callHttp()
                 }
                 makeStrings(outputDir)
+                task.outputs.upToDateWhen { false }
             }
             stringsTask.description = "Generate Text Key string resources for $variantName"
             variant.registerGeneratedResFolders(project.files(outputDir).builtBy(stringsTask))
