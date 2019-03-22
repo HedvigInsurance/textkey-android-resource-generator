@@ -86,7 +86,7 @@ open class TextkeyPlugin : Plugin<Project> {
 """)
                 language.translations.forEach { translation ->
                     translation.key?.let { key ->
-                        buffer.append("    <string name=\"${key.value}\"><![CDATA[${translation.text}]]></string>\n")
+                        buffer.append("    <string name=\"${key.value}\">\"<![CDATA[${translation.text}]]>\"</string>\n")
                     }
                 }
                 buffer.append("</resources>")
