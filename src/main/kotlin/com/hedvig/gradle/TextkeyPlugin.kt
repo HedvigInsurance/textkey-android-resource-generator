@@ -35,8 +35,8 @@ open class TextkeyPlugin : Plugin<Project> {
                     data = callHttp()
                 }
                 makeStrings(outputDir)
-                task.outputs.upToDateWhen { false }
             }
+            stringsTask.outputs.upToDateWhen { false }
             stringsTask.description = "Generate Text Key string resources for $variantName"
             variant.registerGeneratedResFolders(project.files(outputDir).builtBy(stringsTask))
         }

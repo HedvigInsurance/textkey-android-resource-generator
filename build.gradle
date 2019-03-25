@@ -37,11 +37,11 @@ pluginBundle {
     vcsUrl = 'https://www.github.com/hedviginsurance/textkey-android-resource-generator'
     description = 'Generate text key string resources for Android'
     tags = ['hedvig', 'textkeys', 'android']
-    version = '0.2.2'
+    version = '0.2.3'
 
     plugins {
         textkeysPlugin {
-            version = '0.2.2'
+            version = '0.2.3'
             displayName = 'Hedvig Text Keys Android Generator Plugin'
         }
     }
