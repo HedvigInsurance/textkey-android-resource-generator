@@ -8,9 +8,11 @@ import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import org.gradle.api.Action
 import org.gradle.api.DomainObjectCollection
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 import java.io.File
 
 open class TextkeyPlugin : Plugin<Project> {
@@ -30,15 +32,16 @@ open class TextkeyPlugin : Plugin<Project> {
         getVariants().all { variant ->
             val variantName = variant.name.capitalize()
             val outputDir = "${project.buildDir}/generated/textkeys/res"
-            val stringsTask = project.task("generateTextKeyStringResourcesFor$variantName") { task ->
+            val taskName = "generateTextKeyStringResourcesFor$variantName"
+            val stringsTask = project.task(hashMapOf("action" to Action<Task> {
                 if (data == null) {
                     data = callHttp()
                 }
                 makeStrings(outputDir)
-            }
-            stringsTask.outputs.upToDateWhen { false }
+            }), taskName)
             stringsTask.description = "Generate Text Key string resources for $variantName"
             variant.registerGeneratedResFolders(project.files(outputDir).builtBy(stringsTask))
+            variant.mergeResources.dependsOn(stringsTask)
         }
     }
 
@@ -67,10 +70,6 @@ open class TextkeyPlugin : Plugin<Project> {
 
         val response = Response.fromJson(result) ?: throw Error("Failed to parse body: $result")
 
-/*        if (json.errors != null) {
-            throw Error("Got errors when fetching text keys: ${json.errors}")
-        }*/
-
         return response.data
     }
 
@@ -94,7 +93,8 @@ open class TextkeyPlugin : Plugin<Project> {
                 val fileContents = buffer.toString()
 
                 val code = language.code.replace("_", "-r")
-                val file = File("$outputDir/values-$code/strings.xml")
+                val pathname = "$outputDir/values-$code/strings.xml"
+                val file = File(pathname)
                 file.parentFile.mkdirs()
                 file.createNewFile()
                 file.writeText(fileContents)
@@ -107,7 +107,7 @@ open class TextkeyPlugin : Plugin<Project> {
                 }
 
             }
-        }
+        } ?: throw Error("Did not get any data")
     }
 }
 
